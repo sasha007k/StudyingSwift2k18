@@ -1,56 +1,61 @@
-struct Date
-{
-    var day: Int
-    var month: String
-    var year: Int
-    
-    let count_days: [String: Int] =
-    [
-        "January" : 31,
-        "Fabruary" : 28,
-        "March" : 31,
-        "April" : 30,
-        "May" : 31,
-        "June" : 30,
-        "July" : 31,
-        "August" : 31,
-        "September" : 30,
-        "October" : 31,
-        "November" : 30,
-        "December" : 31
-    ]
-    init ()
-    {
-        self.day = 01
-        self.month = "January"
-        self.year = 2000
-    }
-    
-    init?(day: Int, month: String, year: Int)
-    {
-        let temp_day = count_days[month]
-        if day < 1 || temp_day! < day
-        {
-            return nil
-        }
-        self.day = day
-        self.month = month
-        self.year = year
-    }
-    
-    init(date: Date)
-    {
-        self.day = date.day
-        self.month = date.month
-        self.year = date.year
-    }
-    
-    func description() -> String
-    {
-        return "Day: \(self.day)  Month: \(self.month)  Year: \(self.year)"
-    }
-    
-}
+import Foundation
+
+// Why do you need to create custom "Date" struct
+// If you already have "Date" struct in Foundation provided by Apple ?
+
+//struct Date
+//{
+//    var day: Int
+//    var month: String
+//    var year: Int
+//
+//    let count_days: [String: Int] =
+//    [
+//        "January" : 31,
+//        "Fabruary" : 28,
+//        "March" : 31,
+//        "April" : 30,
+//        "May" : 31,
+//        "June" : 30,
+//        "July" : 31,
+//        "August" : 31,
+//        "September" : 30,
+//        "October" : 31,
+//        "November" : 30,
+//        "December" : 31
+//    ]
+//    init ()
+//    {
+//        self.day = 01
+//        self.month = "January"
+//        self.year = 2000
+//    }
+//
+//    init?(day: Int, month: String, year: Int)
+//    {
+//        let temp_day = count_days[month]
+//        if day < 1 || temp_day! < day
+//        {
+//            return nil
+//        }
+//        self.day = day
+//        self.month = month
+//        self.year = year
+//    }
+//
+//    init(date: Date)
+//    {
+//        self.day = date.day
+//        self.month = date.month
+//        self.year = date.year
+//    }
+//
+//    func description() -> String
+//    {
+//        return "Day: \(self.day)  Month: \(self.month)  Year: \(self.year)"
+//    }
+//
+//}
 
 class Diary
 {
@@ -69,7 +74,7 @@ class Diary
             print("Variable 'text' was changed from current value: '\(oldValue!)' to new value: '\(self.text!)'")
         }
     }
-    var tags: [String.SubSequence]? = nil
+    var tags: [String.SubSequence]? = nil // wrong, use [String] instead
     
     init(date: Date, name: String? = nil, text: String? = nil, tag: String? = nil)
     {
@@ -84,7 +89,7 @@ class Diary
         }
         if tag != nil
         {
-            self.tags = tag!.split(separator: ",")
+            self.tags = tag!.split(separator: ",") // wrong, pass Array of Strings instead
         }
         
     }
@@ -151,4 +156,10 @@ var date4 = Date(day: 15, month: "June", year: 2000)
 var date5 = Date(date: date4!)
 print(date4!.description())
 print(date5.description())
+
+// Conclusion:
+//      1. Re-write code using standard "Date" strunc from "Foundation"
+//      2. Check howto compare two Date instances
+//      3. tags should be Array of Strings, e.g. Array<String> or by literal [String]
+//      4. Use Code Style for Swift, since you're writting code not in Swift manner
 
